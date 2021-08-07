@@ -42,9 +42,6 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "jest",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
+    "lint": "tsdx lint"
   }
 }
