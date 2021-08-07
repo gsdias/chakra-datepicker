@@ -242,8 +242,8 @@ export default memo(
                 ))}
               </SimpleGrid>
               <SimpleGrid className={`${ns}__days`} columns={7} spacing={0}>
-                {config.spacer.map((item, index) => (
-                  <Spacer key={index} />
+                {config.spacer.map((item:number, index) => (
+                  <Spacer key={`${item}${index}`} />
                 ))}
                 {config.days.map((day, index, { length }) => (
                   <Day
