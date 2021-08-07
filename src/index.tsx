@@ -125,6 +125,8 @@ export default memo(
         (!isRange && chosenStartDay)
       ) {
         onChange({ startDate: chosenStartDay, endDate: chosenEndDay })
+        inputRef.current.focus()
+        setCalendarVisibility(true)
       }
     }, [chosenStartDay, chosenEndDay])
 
