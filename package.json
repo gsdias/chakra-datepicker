@@ -1,0 +1,20 @@
+{
+  "name": "chakra-datepicker",
+  "version": "0.1.0",
+  "description": "DatePicker using Chakra UI elements",
+  "main": "index.tsx",
+  "repository": "https://github.com/gsdias/chakra-datepicker.git",
+  "author": "Gonçalo Silva Dias <mail@gsdias.pt>",
+  "license": "MIT",
+  "dependencies": {
+    "@chakra-ui/react": "^1.6.5",
+    "jest": "^27.0.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@types/react": "^17.0.16",
+    "@types/react-dom": "^17.0.9"
+  }
+}
