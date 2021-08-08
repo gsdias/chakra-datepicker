@@ -4,6 +4,7 @@ import React, {
   useRef,
   MutableRefObject,
   memo,
+  forwardRef
 } from 'react'
 import {
   Box,
@@ -20,7 +21,7 @@ import Day from './Day'
 
 const ns = 'datePicker'
 
-export default memo(
+export default memo(forwardRef<HTMLDivElement, CalendarioProps>(
   ({
     excludedDates = [],
     startDate,
@@ -32,7 +33,7 @@ export default memo(
     onChange = () => null,
     readonly = false,
     isRange = false,
-  }: CalendarioProps) => {
+  }: CalendarioProps, ref) => {
     const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     const months = [
       'January',
@@ -166,7 +167,7 @@ export default memo(
     }
 
     return (
-      <Container className={ns} p={0}>
+      <Container className={ns} p={0} ref={ref}>
         <Input
           className={`${ns}__input`}
           ref={inputRef}
@@ -274,5 +275,5 @@ export default memo(
         )}
       </Container>
     )
-  },
+  }),
 )
