@@ -2,8 +2,9 @@
   "name": "chakra-datepicker",
   "version": "0.1.0",
   "description": "DatePicker using Chakra UI elements",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "typings": "./lib/cjs/index.d.ts",
+  "main": "./lib/cjs/index",
+  "types": "./lib/cjs/index.d.ts",
   "files": [
     "dist",
     "src"
@@ -40,7 +41,7 @@
   },
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build",
+    "build": "tsc -p tsconfig.json --jsx react",
     "test": "jest",
     "lint": "tsdx lint"
   },
