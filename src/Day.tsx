@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, useTheme } from '@chakra-ui/react'
+import cn from 'classnames'
 import { DayProps } from './index.d'
 
 export default ({
@@ -115,11 +116,14 @@ export default ({
   }
   return (
     <Button
-      className={`${ns}__day${isToday ? ` ${ns}__day--today` : ''}${
-        isChosen.isValid ? ` ${ns}__day--selected` : ''
-      }${isDisabled ? ` ${ns}__day--disabled` : ''}${
-        dayInRange ? ` ${ns}__day--in-range` : ''
-      }`}
+      className={
+        cn(`${ns}__day`, {
+          [`${ns}__day--today`]: isToday,
+          [`${ns}__day--selected`]: isChosen.isValid,
+          [`${ns}__day--disabled`]: isDisabled,
+          [`${ns}__day--in-range`]: dayInRange
+        })
+      }
       ref={(el) => {
         myRefs.current[day] = el
         if (forceFocus && el) {

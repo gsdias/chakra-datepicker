@@ -43,5 +43,9 @@
     "build": "tsdx build",
     "test": "jest",
     "lint": "tsdx lint"
+  },
+  "dependencies": {
+    "classnames": "^2.3.1",
+    "styled-components": "^5.3.0"
   }
 }
