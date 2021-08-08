@@ -1,7 +1,7 @@
 {
-  "name": "chakra-datepicker",
+  "name": "react-calendarpicker",
   "version": "0.1.0",
-  "description": "DatePicker using Chakra UI elements",
+  "description": "CalendarPicker having navigation and accessibility as first priority",
   "typings": "./lib/cjs/index.d.ts",
   "main": "./lib/cjs/index",
   "types": "./lib/cjs/index.d.ts",
@@ -9,10 +9,7 @@
     "dist",
     "src"
   ],
-  "engines": {
-    "node": ">=10"
-  },
-  "repository": "https://github.com/gsdias/chakra-datepicker.git",
+  "repository": "https://github.com/gsdias/react-calendarpicker.git",
   "author": "Gonçalo Silva Dias <mail@gsdias.pt>",
   "license": "MIT",
   "devDependencies": {
