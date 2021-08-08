@@ -132,7 +132,7 @@ export default memo(
 
     const isExcludedDay = (day: Date) =>
       excludedDates.filter(
-        (excludedDay) =>
+        (excludedDay: Date) =>
           excludedDay.getFullYear() === day.getFullYear() &&
           excludedDay.getMonth() === day.getMonth() &&
           excludedDay.getDate() === day.getDate(),
@@ -180,16 +180,14 @@ export default memo(
           value={
             chosenStartDay
               ? `${chosenStartDay.getDate()} ${months[
-                  chosenStartDay.getMonth()
-                ].substr(0, 3)} ${chosenStartDay.getFullYear()}${
-                  isRange ? ' - ' : ''
-                }${
-                  isRange && chosenEndDay
-                    ? `${chosenEndDay.getDate()} ${months[
-                        chosenEndDay.getMonth()
-                      ].substr(0, 3)} ${chosenEndDay.getFullYear()}`
-                    : ''
-                }`
+                chosenStartDay.getMonth()
+              ].substr(0, 3)} ${chosenStartDay.getFullYear()}${isRange ? ' - ' : ''
+              }${isRange && chosenEndDay
+                ? `${chosenEndDay.getDate()} ${months[
+                  chosenEndDay.getMonth()
+                ].substr(0, 3)} ${chosenEndDay.getFullYear()}`
+                : ''
+              }`
               : ''
           }
         />
@@ -244,7 +242,7 @@ export default memo(
                 ))}
               </SimpleGrid>
               <SimpleGrid className={`${ns}__days`} columns={7} spacing={0}>
-                {config.spacer.map((item:number, index) => (
+                {config.spacer.map((item: number, index) => (
                   <Spacer key={`${item}${index}`} />
                 ))}
                 {config.days.map((day, index, { length }) => (
