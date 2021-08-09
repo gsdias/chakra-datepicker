@@ -1,8 +1,19 @@
+import { MutableRefObject } from 'react'
+
 export interface ConfigProps {
   days: number[]
   spacer: number[]
   totalDays: number
   firstDay: number
+}
+export interface InputProps {
+  ref: MutableRefObject<HTMLInputElement>
+  value?: string
+  onChange?(): void
+  ns: string
+  readonly: boolean
+  onClick(): void
+  onFocus(): void
 }
 export interface HeaderProps {
   ns: string
@@ -32,7 +43,6 @@ export interface DayProps {
   setHover(givenDay?: Date): void
   isExcludedDay(givenDay: Date): boolean
   setNewDayFocus(newIndex?: number): void
-  forceFocus?: boolean
   isLast: boolean
   handleMonthChange: any
 }

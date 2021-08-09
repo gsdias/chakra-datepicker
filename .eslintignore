@@ -1,0 +1,15 @@
+node_modules/
+storybook-static/
+dist/
+coverage/
+
+*.stories.tsx
+
+src/types/*
+
+src/index.ts
+
+src/components/Timeline
+src/components/Table
+src/components/Table/@types/react.d.ts
+src/components/helpers

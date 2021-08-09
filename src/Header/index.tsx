@@ -1,6 +1,6 @@
 import React from 'react'
-import { Flex, Button, Select } from '@chakra-ui/react'
-import { HeaderProps } from './index.d'
+import { HeaderProps } from '../index.d'
+import { Header, Button } from './style'
 
 export default ({
   config,
@@ -14,16 +14,11 @@ export default ({
   years,
   ns,
 }: HeaderProps) => (
-  <Flex
-    className={`${ns}__header`}
-    justifyContent="space-between"
-    alignItems="center"
-    gap={6}
-  >
+  <Header className={`${ns}__header`}>
     <Button
+      type="button"
       ref={firstElementRef}
       aria-label="Previous month"
-      variant="outline"
       onClick={() => {
         handleMonthChange({ increase: false })
       }}
@@ -33,30 +28,25 @@ export default ({
           myRefs.current[config.totalDays - 1].focus()
         }
       }}
-      size="sm"
     >
       &larr;
     </Button>
-    <Select
+    <select
       onChange={(e) => {
         handleMonthChange({ newValue: Number(e.currentTarget.value) })
       }}
-      size="sm"
-      width="auto"
       value={selectedMonth}
     >
-      {months.map((month, index) => (
+      {months.map((month: string, index: number) => (
         <option key={month} value={index}>
           {month}
         </option>
       ))}
-    </Select>
-    <Select
+    </select>
+    <select
       onChange={(e) => {
         setSelectedYear(Number(e.currentTarget.value))
       }}
-      size="sm"
-      width="auto"
       value={selectedYear}
     >
       {years.map((year) => (
@@ -64,19 +54,18 @@ export default ({
           {year}
         </option>
       ))}
-    </Select>
+    </select>
     {/* <Text>
 {months[selectedMonth]} {currentDate.getFullYear()}
 </Text> */}
     <Button
+      type="button"
       aria-label="Next month"
-      variant="outline"
       onClick={() => {
         handleMonthChange({ increase: true })
       }}
-      size="sm"
     >
       &rarr;
     </Button>
-  </Flex>
+  </Header>
 )
