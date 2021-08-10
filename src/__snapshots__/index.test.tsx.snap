@@ -1,21 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Calendario Should render correctly 1`] = `
-Array [
-  <div
-    className="chakra-container datePicker css-1bqfmys"
-  >
-    <input
-      className="chakra-input datePicker__input css-1c6j008"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      placeholder="Date"
-      readOnly={false}
-      value=""
-    />
-  </div>,
-  <span />,
-]
+<div
+  className="sc-jSFjdj fCvFFD datePicker"
+>
+  <input
+    className="sc-eCApnc bMxncj datePicker__input"
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    placeholder="Date"
+    readOnly={false}
+    value=""
+  />
+</div>
 `;

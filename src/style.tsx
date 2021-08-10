@@ -31,3 +31,15 @@ export const ListDays = styled.div(
     grid-template-columns: repeat(7, minmax(0, 1fr));
   `,
 )
+
+export const WeekDays = styled.div(
+  () => css`
+    display: grid;
+    grid-gap: 0;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    justify-items: center;
+    color: #dedede;
+    font-size: 12px;
+    margin-top: 10px;
+  `,
+)

@@ -6,14 +6,30 @@ import React, {
   memo,
   forwardRef,
 } from 'react'
-import { SimpleGrid, useOutsideClick, Spacer, Text } from '@chakra-ui/react'
 import { CalendarioProps, ConfigProps } from './index.d'
 import Header from './Header'
 import Day from './Day'
 import Input from './Input'
-import { ListDays, Root, Container } from './style'
+import { ListDays, Root, Container, WeekDays } from './style'
 
 const ns = 'datePicker'
+
+function useOnClickOutside(ref: any, handler: any) {
+  useEffect(() => {
+    const listener = (event: any) => {
+      if (!ref.current || ref.current.contains(event.target)) {
+        return
+      }
+      handler(event)
+    }
+    document.addEventListener('mousedown', listener)
+    document.addEventListener('touchstart', listener)
+    return () => {
+      document.removeEventListener('mousedown', listener)
+      document.removeEventListener('touchstart', listener)
+    }
+  }, [ref, handler])
+}
 
 export default memo(
   forwardRef<HTMLDivElement, CalendarioProps>(
@@ -136,14 +152,11 @@ export default memo(
         myRefs.current = []
       }, [selectedMonth, selectedYear])
 
-      useOutsideClick({
-        ref: calendarRef,
-        handler: () => {
-          if (isRange && !chosenEndDay) {
-            setChosenStartDay(undefined)
-          }
-          setCalendarVisibility(true)
-        },
+      useOnClickOutside(calendarRef, () => {
+        if (isRange && !chosenEndDay) {
+          setChosenStartDay(undefined)
+        }
+        setCalendarVisibility(true)
       })
 
       useEffect(() => {
@@ -275,23 +288,14 @@ export default memo(
                 ns={ns}
               />
               <div className={`${ns}__calendar`}>
-                <SimpleGrid
-                  className={`${ns}__week-days`}
-                  columns={7}
-                  spacing={0}
-                  justifyItems="center"
-                  mt={1}
-                  mb={1}
-                >
+                <WeekDays className={`${ns}__week-days`}>
                   {weekDays.map((text) => (
-                    <Text fontSize="xs" color="gray.300" key={text}>
-                      {text}
-                    </Text>
+                    <p key={text}>{text}</p>
                   ))}
-                </SimpleGrid>
+                </WeekDays>
                 <ListDays className={`${ns}__days`}>
                   {config.spacer.map((item: number, index) => (
-                    <Spacer key={`${item}${index}`} />
+                    <div key={`${item}${index}`} />
                   ))}
                   {config.days.map((day, index, { length }) => (
                     <Day

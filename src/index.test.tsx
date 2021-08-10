@@ -2,7 +2,6 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import ReactDOM from 'react-dom'
 import { Simulate } from 'react-dom/test-utils'
-import { ChakraProvider } from '@chakra-ui/react'
 import Calendario from '.'
 
 let container: any
@@ -18,23 +17,12 @@ afterEach(() => {
 
 describe('Calendario', () => {
   it('Should render correctly', () => {
-    const tree = renderer
-      .create(
-        <ChakraProvider>
-          <Calendario />
-        </ChakraProvider>,
-      )
-      .toJSON()
+    const tree = renderer.create(<Calendario />).toJSON()
     expect(tree).toMatchSnapshot()
   })
   it('Calls onclick action', () => {
     // const onClick = jest.fn()
-    ReactDOM.render(
-      <ChakraProvider>
-        <Calendario />
-      </ChakraProvider>,
-      container,
-    )
+    ReactDOM.render(<Calendario />, container)
     const input = container.querySelector('input')
     Simulate.focus(input)
     const datePicker = container.querySelector('.datePicker')
