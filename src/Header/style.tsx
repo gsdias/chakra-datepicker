@@ -13,5 +13,14 @@ export const Button = styled.button(
     border-radius: 4px;
     width: 30px;
     height: 30px;
+    padding-bottom: 4px;
+  `,
+)
+export const Select = styled.select(
+  () => css`
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    height: 30px;
+    padding: 0 5px;
   `,
 )

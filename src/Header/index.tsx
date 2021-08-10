@@ -1,6 +1,6 @@
 import React from 'react'
 import { HeaderProps } from '../index.d'
-import { Header, Button } from './style'
+import { Header, Button, Select } from './style'
 
 export default ({
   config,
@@ -32,7 +32,7 @@ export default ({
     >
       &larr;
     </Button>
-    <select
+    <Select
       onChange={(e) => {
         handleMonthChange({ newValue: Number(e.currentTarget.value) })
       }}
@@ -43,8 +43,8 @@ export default ({
           {month}
         </option>
       ))}
-    </select>
-    <select
+    </Select>
+    <Select
       onChange={(e) => {
         setSelectedYear(Number(e.currentTarget.value))
       }}
@@ -55,7 +55,7 @@ export default ({
           {year}
         </option>
       ))}
-    </select>
+    </Select>
     {/* <Text>
 {months[selectedMonth]} {currentDate.getFullYear()}
 </Text> */}

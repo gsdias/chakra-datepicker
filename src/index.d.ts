@@ -47,6 +47,8 @@ export interface DayProps {
   setNewDayFocus(newIndex?: number): void
   isLast?: boolean
   handleMonthChange: any
+  convertedMinDate?: number
+  convertedMaxDate?: number
 }
 export interface CalendarioProps {
   excludedDates?: Date[]
@@ -59,4 +61,6 @@ export interface CalendarioProps {
   onChange?({ startDate, endDate }: { startDate?: Date; endDate?: Date }): void
   readonly?: boolean
   isRange?: boolean
+  minDate?: Date
+  maxDate?: Date
 }

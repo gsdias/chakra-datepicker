@@ -12,7 +12,7 @@ export const Root = styled.div(
 
 export const Container = styled.div(
   () => css`
-    width: 320px;
+    width: 284px;
     border: var(--chakra-borders-1px);
     border-color: var(--chakra-colors-gray-200);
     border-radius: 8px;

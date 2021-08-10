@@ -6,8 +6,10 @@ import { Button } from './style'
 export default forwardRef<HTMLButtonElement, DayProps>(
   (
     {
+      ns,
       leftArrowRef,
       rightArrowRef,
+      myRefs,
       day,
       selectedYear,
       selectedMonth,
@@ -16,13 +18,13 @@ export default forwardRef<HTMLButtonElement, DayProps>(
       chosenStartDay,
       chosenEndDay,
       hoverDay,
-      myRefs,
       setChosenEndDay,
       setChosenStartDay,
       setHover,
       isExcludedDay,
       setNewDayFocus,
-      ns,
+      convertedMinDate,
+      convertedMaxDate,
     }: DayProps,
     ref,
   ) => {
@@ -53,10 +55,17 @@ export default forwardRef<HTMLButtonElement, DayProps>(
     }
     const getNextFocus = (dayNumber: number, step: number) => {
       let i = step
-      while (
-        isExcludedDay(new Date(selectedYear, selectedMonth, dayNumber + i))
-      ) {
+      let newDay = new Date(selectedYear, selectedMonth, dayNumber + i)
+      console.log(dayNumber, step)
+      if (convertedMinDate && newDay.getTime() < convertedMinDate) {
+        return 0
+      }
+      if (convertedMaxDate && newDay.getTime() > convertedMaxDate) {
+        return 0
+      }
+      while (isExcludedDay(newDay)) {
         i += step
+        newDay = new Date(selectedYear, selectedMonth, dayNumber + i)
       }
       return i
     }
@@ -185,6 +194,7 @@ export default forwardRef<HTMLButtonElement, DayProps>(
           }
           if (e.key === 'ArrowLeft') {
             newIndex = dayNumber + getNextFocus(dayNumber, -1) - 1
+            console.log(newIndex)
             newFocus = new Date(selectedYear, selectedMonth, 0).getDate() - 1
           }
           if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {

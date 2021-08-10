@@ -29,6 +29,8 @@ export default memo(
         onChange = () => null,
         readonly = false,
         isRange = false,
+        minDate,
+        maxDate,
       }: CalendarioProps,
       ref,
     ) => {
@@ -88,6 +90,29 @@ export default memo(
       )
       const [hoverDay, setHover] = useState<Date | undefined>()
       const [newDayFocus, setNewDayFocus] = useState<number | undefined>()
+      const [convertedMinDate, setConvertedMinDate] = useState<number>(0)
+      const [convertedMaxDate, setConvertedMaxDate] = useState<number>(0)
+
+      useEffect(() => {
+        if (minDate) {
+          setConvertedMinDate(
+            new Date(
+              minDate.getFullYear(),
+              minDate.getMonth(),
+              minDate.getDate(),
+            ).getTime(),
+          )
+        }
+        if (maxDate) {
+          setConvertedMaxDate(
+            new Date(
+              maxDate.getFullYear(),
+              maxDate.getMonth(),
+              maxDate.getDate(),
+            ).getTime(),
+          )
+        }
+      }, [minDate, maxDate])
 
       useEffect(() => {
         const currentDate = new Date(selectedYear, selectedMonth, 1)
@@ -132,13 +157,22 @@ export default memo(
         }
       }, [chosenStartDay, chosenEndDay])
 
-      const isExcludedDay = (day: Date) =>
-        excludedDates.filter(
-          (excludedDay: Date) =>
-            excludedDay.getFullYear() === day.getFullYear() &&
-            excludedDay.getMonth() === day.getMonth() &&
-            excludedDay.getDate() === day.getDate(),
-        ).length > 0
+      const isExcludedDay = (day: Date) => {
+        if (convertedMinDate && day.getTime() < convertedMinDate) {
+          return true
+        }
+        if (convertedMaxDate && day.getTime() > convertedMaxDate) {
+          return true
+        }
+        return (
+          excludedDates.filter(
+            (excludedDay: Date) =>
+              excludedDay.getFullYear() === day.getFullYear() &&
+              excludedDay.getMonth() === day.getMonth() &&
+              excludedDay.getDate() === day.getDate(),
+          ).length > 0
+        )
+      }
 
       const handleMonthChange = ({
         newValue,
@@ -161,6 +195,25 @@ export default memo(
         if (monthValue === 12) {
           monthValue = 0
           yearValue += 1
+        }
+
+        if (convertedMinDate && minDate) {
+          const minLimit = new Date(
+            minDate.getFullYear(),
+            minDate.getMonth(),
+            1,
+          ).getTime()
+          const nextMonth = new Date(yearValue, monthValue, 1).getTime()
+          if (nextMonth < minLimit) {
+            return
+          }
+        }
+
+        if (convertedMaxDate) {
+          const nextMonth = new Date(yearValue, monthValue, 1).getTime()
+          if (nextMonth > convertedMaxDate) {
+            return
+          }
         }
 
         setSelectedMonth(monthValue)
@@ -268,6 +321,8 @@ export default memo(
                       ns={ns}
                       isExcludedDay={isExcludedDay}
                       setNewDayFocus={setNewDayFocus}
+                      convertedMinDate={convertedMinDate}
+                      convertedMaxDate={convertedMaxDate}
                     />
                   ))}
                 </ListDays>
