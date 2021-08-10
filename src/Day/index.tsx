@@ -56,7 +56,7 @@ export default forwardRef<HTMLButtonElement, DayProps>(
     const getNextFocus = (dayNumber: number, step: number) => {
       let i = step
       let newDay = new Date(selectedYear, selectedMonth, dayNumber + i)
-      console.log(dayNumber, step)
+
       if (convertedMinDate && newDay.getTime() < convertedMinDate) {
         return 0
       }
@@ -194,7 +194,6 @@ export default forwardRef<HTMLButtonElement, DayProps>(
           }
           if (e.key === 'ArrowLeft') {
             newIndex = dayNumber + getNextFocus(dayNumber, -1) - 1
-            console.log(newIndex)
             newFocus = new Date(selectedYear, selectedMonth, 0).getDate() - 1
           }
           if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
