@@ -1,6 +1,6 @@
 {
-  "name": "react-calendarpicker",
-  "version": "0.1.0",
+  "name": "@gsdias/react-calendarpicker",
+  "version": "0.1.2",
   "description": "CalendarPicker having navigation and accessibility as first priority",
   "typings": "./lib/esm/index.d.ts",
   "main": "./lib/esm/index",
