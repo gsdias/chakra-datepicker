@@ -4,7 +4,8 @@ import { Header, Button } from './style'
 
 export default ({
   config,
-  firstElementRef,
+  leftArrowRef,
+  rightArrowRef,
   myRefs,
   handleMonthChange,
   selectedMonth,
@@ -17,7 +18,7 @@ export default ({
   <Header className={`${ns}__header`}>
     <Button
       type="button"
-      ref={firstElementRef}
+      ref={leftArrowRef}
       aria-label="Previous month"
       onClick={() => {
         handleMonthChange({ increase: false })
@@ -59,6 +60,7 @@ export default ({
 {months[selectedMonth]} {currentDate.getFullYear()}
 </Text> */}
     <Button
+      ref={rightArrowRef}
       type="button"
       aria-label="Next month"
       onClick={() => {

@@ -6,8 +6,8 @@ import { Button } from './style'
 export default forwardRef<HTMLButtonElement, DayProps>(
   (
     {
-      firstElementRef,
-      isLast,
+      leftArrowRef,
+      rightArrowRef,
       day,
       selectedYear,
       selectedMonth,
@@ -203,9 +203,12 @@ export default forwardRef<HTMLButtonElement, DayProps>(
               setNewDayFocus(newFocus)
             }
           }
-          if (e.key === 'Tab' && isLast) {
+          if (e.shiftKey && e.key === 'Tab') {
             e.preventDefault()
-            firstElementRef.current.focus()
+            rightArrowRef.current.focus()
+          } else if (e.key === 'Tab') {
+            e.preventDefault()
+            leftArrowRef.current.focus()
           }
         }}
         borderRadius={dayInRange ? 0 : borderValue}

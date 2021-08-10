@@ -56,7 +56,8 @@ export default memo(
 
       const calendarRef = useRef() as MutableRefObject<HTMLDivElement>
       const inputRef = useRef() as MutableRefObject<HTMLInputElement>
-      const firstElementRef = useRef() as MutableRefObject<HTMLButtonElement>
+      const leftArrowRef = useRef() as MutableRefObject<HTMLButtonElement>
+      const rightArrowRef = useRef() as MutableRefObject<HTMLButtonElement>
       const myRefs = useRef<HTMLButtonElement[]>([])
       const [config, setConfig] = useState<ConfigProps>({
         days: [],
@@ -209,7 +210,8 @@ export default memo(
             >
               <Header
                 config={config}
-                firstElementRef={firstElementRef}
+                leftArrowRef={leftArrowRef}
+                rightArrowRef={rightArrowRef}
                 myRefs={myRefs}
                 selectedMonth={selectedMonth}
                 setSelectedYear={setSelectedYear}
@@ -248,7 +250,8 @@ export default memo(
                         }
                       }}
                       key={day}
-                      firstElementRef={firstElementRef}
+                      leftArrowRef={leftArrowRef}
+                      rightArrowRef={rightArrowRef}
                       day={day}
                       isLast={index + 1 === length}
                       selectedYear={selectedYear}

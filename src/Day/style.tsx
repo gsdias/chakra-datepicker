@@ -9,7 +9,12 @@ export const Button = styled.button(
     borderRadius: string | number
     backgroundColor: string
     variant: string
-  }) => css`
+  }) => {
+    let targetColor = backgroundColor === 'blue' ? '#17659C' : ''
+    if (backgroundColor === 'cyan') {
+      targetColor = '#8DDFFE'
+    }
+    return css`
   display: inline-flex;
   appearance: none;
   align-items: center;
@@ -27,13 +32,29 @@ export const Button = styled.button(
   height: 2rem;
   font-size: 12px;
   color: #000;
-  background: ${variant === 'solid' && backgroundColor};
+  background: ${variant === 'solid' && targetColor};
   transition: none;
-  border: ${variant === 'outline' ? `solid 1px ${backgroundColor}` : 0};
+  border: ${variant === 'outline' ? `solid 1px ${targetColor}` : 0};
 
-  &:focus {
-    box-shadow: 0 0 5px #000;
+  &.datePicker__day {
+    &--today:not(&--selected) {
+      border: solid 1px #17659C;
+    }
+
+    &--in-range {
+      color: #fff;
+    }
+  }
+
+  &:focus,&:active {
+    box-shadow: 0 0 4px -1px #000;
+    z-index: 1 ;
   }
 }
-  `,
+  `
+  },
 )
+
+export default {
+  Button,
+}

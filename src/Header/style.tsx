@@ -11,5 +11,7 @@ export const Button = styled.button(
   () => css`
     border: solid 1px #ccc;
     border-radius: 4px;
+    width: 30px;
+    height: 30px;
   `,
 )

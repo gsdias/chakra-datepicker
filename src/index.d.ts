@@ -19,7 +19,8 @@ export interface HeaderProps {
   ns: string
   config: ConfigProps
   myRefs: any
-  firstElementRef: any
+  leftArrowRef: any
+  rightArrowRef: any
   months: string[]
   years: number[]
   selectedMonth: number
@@ -30,7 +31,8 @@ export interface HeaderProps {
 export interface DayProps {
   ns: string
   myRefs: any
-  firstElementRef: any
+  leftArrowRef: any
+  rightArrowRef: any
   day: number
   selectedYear: number
   selectedMonth: number
@@ -43,7 +45,7 @@ export interface DayProps {
   setHover(givenDay?: Date): void
   isExcludedDay(givenDay: Date): boolean
   setNewDayFocus(newIndex?: number): void
-  isLast: boolean
+  isLast?: boolean
   handleMonthChange: any
 }
 export interface CalendarioProps {
