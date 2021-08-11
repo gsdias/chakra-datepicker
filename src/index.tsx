@@ -35,6 +35,7 @@ export default memo(
   forwardRef<HTMLDivElement, CalendarioProps>(
     (
       {
+        placeholder,
         excludedDates = [],
         startDate,
         endDate,
@@ -238,6 +239,7 @@ export default memo(
           <Input
             ns={ns}
             ref={inputRef}
+            placeholder={placeholder}
             readonly={readonly}
             onChange={() => null}
             onClick={() => setCalendarVisibility(false || readonly)}

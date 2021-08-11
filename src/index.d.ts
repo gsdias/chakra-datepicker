@@ -1,4 +1,4 @@
-import { MutableRefObject } from 'react'
+import { ElementType, MutableRefObject } from 'react'
 
 export interface ConfigProps {
   days: number[]
@@ -8,6 +8,7 @@ export interface ConfigProps {
 }
 export interface InputProps {
   ref: MutableRefObject<HTMLInputElement>
+  placeholder?: string
   value?: string
   onChange?(): void
   ns: string
@@ -51,6 +52,7 @@ export interface DayProps {
   convertedMaxDate?: number
 }
 export interface CalendarioProps {
+  placeholder?: string
   excludedDates?: Date[]
   startDate?: Date
   endDate?: Date
@@ -63,4 +65,5 @@ export interface CalendarioProps {
   isRange?: boolean
   minDate?: Date
   maxDate?: Date
+  input?: ElementType
 }
