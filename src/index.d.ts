@@ -1,5 +1,10 @@
 import { ElementType, MutableRefObject } from 'react'
 
+export interface YearRangeProps {
+  start: number
+  end: number
+  isExtended: boolean
+}
 export interface ConfigProps {
   days: number[]
   spacer: number[]
@@ -56,11 +61,7 @@ export interface CalendarioProps {
   excludedDates?: Date[]
   startDate?: Date
   endDate?: Date
-  yearRange?: {
-    start: number
-    end: number
-    isExtended: boolean
-  }
+  yearRange?: YearRangeProps
   onChange?({ startDate, endDate }: { startDate?: Date; endDate?: Date }): void
   readonly?: boolean
   isRange?: boolean

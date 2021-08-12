@@ -165,6 +165,12 @@ export default memo(
           currentDate.getMonth(),
           1,
         ).getDay()
+        const firstPreviousMonthDay = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          -newFirstDay + 1,
+        ).getDate()
+        console.log(firstPreviousMonthDay)
         setConfig({
           ...config,
           totalDays: newTotalDays,
@@ -320,8 +326,8 @@ export default memo(
                   ))}
                 </WeekDays>
                 <ListDays className={`${ns}__days`}>
-                  {config.spacer.map((item: number, index) => (
-                    <div key={`${item}${index}`} />
+                  {config.spacer.map((item: number) => (
+                    <div key={item} />
                   ))}
                   {config.days.map((day, index, { length }) => (
                     <Day

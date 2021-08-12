@@ -1,3 +1,9 @@
+import { YearRangeProps } from '../index.d'
+
+type YearWindowRange = {
+  yearRange: YearRangeProps
+  yearWindow: number
+}
 type YearMinMaxSelected = {
   minDate?: Date
   maxDate?: Date
@@ -37,7 +43,7 @@ export const getYearList = ({
   yearWindow,
   selectedYear,
   yearRange: { start, end, isExtended },
-}: any) => {
+}: YearMinMaxSelected & YearWindowRange) => {
   const yearList = []
   const limit = isExtended ? selectedYear + yearWindow : end
   for (

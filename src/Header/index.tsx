@@ -62,9 +62,6 @@ export default ({
         </option>
       ))}
     </Select>
-    {/* <Text>
-{months[selectedMonth]} {currentDate.getFullYear()}
-</Text> */}
     <Button
       ref={rightArrowRef}
       type="button"
