@@ -7,6 +7,7 @@ import React, {
   forwardRef,
   useMemo,
 } from 'react'
+import cn from 'classnames'
 import { CalendarioProps, ConfigProps } from './index.d'
 import Header from './Header'
 import Day from './Day'
@@ -342,7 +343,7 @@ export default memo(
                       <DayStyled
                         disabled
                         key={item}
-                        className={`${ns}__day ${ns}__day--disabled`}
+                        className={cn(`${ns}__day`, `${ns}__day--disabled`)}
                       >
                         {item}
                       </DayStyled>
@@ -387,7 +388,7 @@ export default memo(
                       <DayStyled
                         disabled
                         key={item}
-                        className={`${ns}__day ${ns}__day--disabled`}
+                        className={cn(`${ns}__day`, `${ns}__day--disabled`)}
                       >
                         {item + 1}
                       </DayStyled>
