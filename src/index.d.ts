@@ -10,6 +10,7 @@ export interface ConfigProps {
   spacer: number[]
   totalDays: number
   firstDay: number
+  nextMonth: number[]
 }
 export interface InputProps {
   ref: MutableRefObject<HTMLInputElement>
@@ -68,4 +69,5 @@ export interface CalendarioProps {
   minDate?: Date
   maxDate?: Date
   input?: ElementType
+  peakMonths?: boolean
 }

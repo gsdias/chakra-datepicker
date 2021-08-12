@@ -13,6 +13,7 @@ import Day from './Day'
 import Input from './Input'
 import { ListDays, Root, Container, WeekDays } from './style'
 import { getYearList } from './utils/year'
+import { Button as DayStyled } from './Day/style'
 
 const ns = 'datePicker'
 
@@ -52,6 +53,7 @@ export default memo(
         minDate,
         maxDate,
         input,
+        peakMonths = true,
       }: CalendarioProps,
       ref,
     ) => {
@@ -89,6 +91,7 @@ export default memo(
           (startDate || new Date()).getMonth(),
           1,
         ).getDay(),
+        nextMonth: [],
       })
       const [isCalendarHidden, setCalendarVisibility] = useState(true)
       const [selectedMonth, setSelectedMonth] = useState(
@@ -165,18 +168,26 @@ export default memo(
           currentDate.getMonth(),
           1,
         ).getDay()
-        const firstPreviousMonthDay = new Date(
+        let previousMonthDay = new Date(
           currentDate.getFullYear(),
           currentDate.getMonth(),
           -newFirstDay + 1,
         ).getDate()
-        console.log(firstPreviousMonthDay)
         setConfig({
           ...config,
           totalDays: newTotalDays,
           firstDay: newFirstDay,
           days: [...Array(newTotalDays).keys()],
-          spacer: [...Array(newFirstDay).keys()],
+          spacer: [...Array(newFirstDay).keys()].map(() => {
+            const day = previousMonthDay
+            previousMonthDay += 1
+            return day
+          }),
+          nextMonth: [
+            ...Array(
+              7 - ((config.days.length + config.spacer.length) % 7),
+            ).keys(),
+          ],
         })
         myRefs.current = []
         setYears(cachedGetYearList)
@@ -326,9 +337,19 @@ export default memo(
                   ))}
                 </WeekDays>
                 <ListDays className={`${ns}__days`}>
-                  {config.spacer.map((item: number) => (
-                    <div key={item} />
-                  ))}
+                  {config.spacer.map((item: number) =>
+                    peakMonths ? (
+                      <DayStyled
+                        disabled
+                        key={item}
+                        className={`${ns}__day ${ns}__day--disabled`}
+                      >
+                        {item}
+                      </DayStyled>
+                    ) : (
+                      <div />
+                    ),
+                  )}
                   {config.days.map((day, index, { length }) => (
                     <Day
                       ref={(el: HTMLButtonElement) => {
@@ -361,6 +382,16 @@ export default memo(
                       convertedMaxDate={convertedMaxDate}
                     />
                   ))}
+                  {peakMonths &&
+                    config.nextMonth.map((item) => (
+                      <DayStyled
+                        disabled
+                        key={item}
+                        className={`${ns}__day ${ns}__day--disabled`}
+                      >
+                        {item + 1}
+                      </DayStyled>
+                    ))}
                 </ListDays>
               </div>
             </Container>

@@ -1,13 +1,17 @@
 import styled, { css } from 'styled-components'
 
 type ButtonProps = {
-  borderRadius: string | number
-  backgroundColor: string
-  variant: string
+  borderRadius?: string | number
+  backgroundColor?: string
+  variant?: string
 }
 
 export const Button = styled.button(
-  ({ borderRadius, backgroundColor, variant }: ButtonProps) => {
+  ({
+    borderRadius = '0.375rem',
+    backgroundColor = '#fff',
+    variant = 'solid',
+  }: ButtonProps) => {
     let targetColor = backgroundColor === 'blue' ? '#17659C' : ''
     if (backgroundColor === 'cyan') {
       targetColor = '#8DDFFE'
