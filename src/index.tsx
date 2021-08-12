@@ -5,12 +5,14 @@ import React, {
   MutableRefObject,
   memo,
   forwardRef,
+  useMemo,
 } from 'react'
 import { CalendarioProps, ConfigProps } from './index.d'
 import Header from './Header'
 import Day from './Day'
 import Input from './Input'
 import { ListDays, Root, Container, WeekDays } from './style'
+import { getYearList } from './utils/year'
 
 const ns = 'datePicker'
 
@@ -42,12 +44,14 @@ export default memo(
         yearRange = {
           start: new Date().getFullYear() - 5,
           end: new Date().getFullYear() + 5,
+          isExtended: true,
         },
         onChange = () => null,
         readonly = false,
         isRange = false,
         minDate,
         maxDate,
+        input,
       }: CalendarioProps,
       ref,
     ) => {
@@ -66,12 +70,6 @@ export default memo(
         'November',
         'December',
       ]
-
-      const years = []
-
-      for (let i = yearRange.start; i <= yearRange.end; i += 1) {
-        years.push(i)
-      }
 
       const calendarRef = useRef() as MutableRefObject<HTMLDivElement>
       const inputRef = useRef() as MutableRefObject<HTMLInputElement>
@@ -109,27 +107,51 @@ export default memo(
       const [newDayFocus, setNewDayFocus] = useState<number | undefined>()
       const [convertedMinDate, setConvertedMinDate] = useState<number>(0)
       const [convertedMaxDate, setConvertedMaxDate] = useState<number>(0)
+      const [years, setYears] = useState<number[]>([])
+      const [yearWindow, setYearWindow] = useState<number>(
+        Math.floor(Math.abs(yearRange.end - yearRange.start) / 2),
+      )
 
       useEffect(() => {
+        let tempMinDate
+        let tempMaxDate
         if (minDate) {
-          setConvertedMinDate(
-            new Date(
-              minDate.getFullYear(),
-              minDate.getMonth(),
-              minDate.getDate(),
-            ).getTime(),
-          )
+          tempMinDate = new Date(
+            minDate.getFullYear(),
+            minDate.getMonth(),
+            minDate.getDate(),
+          ).getTime()
+          setConvertedMinDate(tempMinDate)
         }
         if (maxDate) {
-          setConvertedMaxDate(
-            new Date(
-              maxDate.getFullYear(),
-              maxDate.getMonth(),
-              maxDate.getDate(),
-            ).getTime(),
-          )
+          tempMaxDate = new Date(
+            maxDate.getFullYear(),
+            maxDate.getMonth(),
+            maxDate.getDate(),
+          ).getTime()
+          setConvertedMaxDate(tempMaxDate)
         }
+        setYears(
+          getYearList({
+            minDate,
+            maxDate,
+            yearWindow,
+            selectedYear,
+            yearRange,
+          }),
+        )
+        setYearWindow(Math.floor(Math.abs(yearRange.end - yearRange.start) / 2))
       }, [minDate, maxDate])
+
+      const cachedGetYearList = useMemo<number[]>(() => {
+        return getYearList({
+          minDate,
+          maxDate,
+          yearWindow,
+          selectedYear,
+          yearRange,
+        })
+      }, [minDate, maxDate, yearWindow, selectedYear])
 
       useEffect(() => {
         const currentDate = new Date(selectedYear, selectedMonth, 1)
@@ -151,6 +173,7 @@ export default memo(
           spacer: [...Array(newFirstDay).keys()],
         })
         myRefs.current = []
+        setYears(cachedGetYearList)
       }, [selectedMonth, selectedYear])
 
       useOnClickOutside(calendarRef, () => {
@@ -234,20 +257,22 @@ export default memo(
         setSelectedYear(yearValue)
       }
 
+      const renderInput = input || <Input />
+
       return (
         <Root className={ns} ref={ref}>
-          <Input
-            ns={ns}
-            ref={inputRef}
-            placeholder={placeholder}
-            readonly={readonly}
-            onChange={() => null}
-            onClick={() => setCalendarVisibility(false || readonly)}
-            onFocus={() => {
-              setCalendarVisibility(false || readonly)
-            }}
-            value={
-              chosenStartDay
+          {React.isValidElement(renderInput) &&
+            React.cloneElement(renderInput as React.ReactElement<any>, {
+              className: `${ns}__input`,
+              ref: inputRef,
+              placeholder,
+              readonly,
+              onChange: () => null,
+              onClick: () => setCalendarVisibility(false || readonly),
+              onFocus: () => {
+                setCalendarVisibility(false || readonly)
+              },
+              value: chosenStartDay
                 ? `${chosenStartDay.getDate()} ${months[
                     chosenStartDay.getMonth()
                   ].substr(0, 3)} ${chosenStartDay.getFullYear()}${
@@ -259,9 +284,8 @@ export default memo(
                         ].substr(0, 3)} ${chosenEndDay.getFullYear()}`
                       : ''
                   }`
-                : ''
-            }
-          />
+                : '',
+            })}
           {!isCalendarHidden && (
             <Container
               className={`${ns}__container`}

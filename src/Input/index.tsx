@@ -8,7 +8,7 @@ export default forwardRef<HTMLInputElement, InputProps>(
       placeholder,
       value,
       onChange,
-      ns,
+      className,
       readonly,
       onClick,
       onFocus,
@@ -19,7 +19,7 @@ export default forwardRef<HTMLInputElement, InputProps>(
       ref={ref}
       value={value}
       onChange={onChange}
-      className={`${ns}__input`}
+      className={className}
       readOnly={readonly}
       placeholder={placeholder || 'Date'}
       onClick={onClick}

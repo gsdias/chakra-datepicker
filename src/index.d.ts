@@ -11,10 +11,10 @@ export interface InputProps {
   placeholder?: string
   value?: string
   onChange?(): void
-  ns: string
-  readonly: boolean
-  onClick(): void
-  onFocus(): void
+  className?: string
+  readonly?: boolean
+  onClick?(): void
+  onFocus?(): void
 }
 export interface HeaderProps {
   ns: string
@@ -59,6 +59,7 @@ export interface CalendarioProps {
   yearRange?: {
     start: number
     end: number
+    isExtended: boolean
   }
   onChange?({ startDate, endDate }: { startDate?: Date; endDate?: Date }): void
   readonly?: boolean

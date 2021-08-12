@@ -1,6 +1,7 @@
 import React from 'react'
 import { HeaderProps } from '../index.d'
 import { Header, Button, Select } from './style'
+import { getValidYear } from '../utils/year'
 
 export default ({
   config,
@@ -46,7 +47,12 @@ export default ({
     </Select>
     <Select
       onChange={(e) => {
-        setSelectedYear(Number(e.currentTarget.value))
+        setSelectedYear(
+          getValidYear({
+            givenYear: Number(e.currentTarget.value),
+            selectedYear,
+          }),
+        )
       }}
       value={selectedYear}
     >
